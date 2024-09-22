@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">>
+      layout:decorate="~{layout.html}">
 <body>
 <main layout:fragment="content">
-    Sign-up Page
+    <form class="form-sign-up w-100 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+
+        <div class="form-floating">
+            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            <label for="email">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="firstName" placeholder="">
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="lastName" placeholder="">
+            <label for="lastName">Last Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" placeholder="Password">
+            <label for="password">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeated password">
+            <label for="repeatedPassword">Repeated password</label>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+    </form>
 </main>
 </body>
 </html>
