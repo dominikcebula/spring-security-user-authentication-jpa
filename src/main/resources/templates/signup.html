@@ -1,35 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Spring Security User Authentication with JPA</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">>
 <body>
-
-<div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
-            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                <i class="bi me-2 bi-house fs-4"></i>
-                <span class="fs-4">example-website.com</span>
-            </a>
-        </div>
-
-        <div class="col-md-3 text-end">
-            <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/signup" type="button" class="btn btn-primary">Sign-up</a>
-        </div>
-    </header>
-
-    <main>
-        Sign-up Page
-    </main>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<main layout:fragment="content">
+    Sign-up Page
+</main>
 </body>
 </html>
