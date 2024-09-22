@@ -8,7 +8,10 @@ TBD
 
 ## Use Cases
 
-TBD
+* Log in
+* Sign up
+* E-mail verification
+* Password reset
 
 ## Usage
 
