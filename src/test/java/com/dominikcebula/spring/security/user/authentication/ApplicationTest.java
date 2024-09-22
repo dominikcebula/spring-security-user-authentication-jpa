@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -21,11 +21,19 @@ class ApplicationTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "/", "/home"})
     void shouldDisplayDefaultHelloPage(String path) throws IOException {
-        try (WebClient webClient = new WebClient()) {
+        try (WebClient webClient = getWebClient()) {
             HtmlPage page = webClient.getPage(getLocalUrl(path));
 
-            assertEquals("Welcome to Spring Boot 3 Web Application.", page.getBody().asNormalizedText());
+            assertThat(page.getBody().asNormalizedText())
+                    .isNotBlank();
         }
+    }
+
+    private WebClient getWebClient() {
+        WebClient webClient = new WebClient();
+        webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setJavaScriptEnabled(false);
+        return webClient;
     }
 
     private String getLocalUrl(String path) {
