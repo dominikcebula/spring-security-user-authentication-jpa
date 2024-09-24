@@ -11,22 +11,28 @@
         <div class="form-floating mb-2">
             <input type="email" class="form-control" id="email" placeholder="name@example.com" th:field="*{email}">
             <label for="email">Email address</label>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
         </div>
         <div class="form-floating mb-2">
             <input type="text" class="form-control" id="firstName" placeholder="" th:field="*{firstName}">
             <label for="firstName">First Name</label>
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
         </div>
         <div class="form-floating mb-2">
             <input type="text" class="form-control" id="lastName" placeholder="" th:field="*{lastName}">
             <label for="lastName">Last Name</label>
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
         </div>
         <div class="form-floating mb-2">
             <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}">
             <label for="password">Password</label>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeated password" th:field="*{repeatedPassword}">
+            <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeated password"
+                   th:field="*{repeatedPassword}">
             <label for="repeatedPassword">Repeated password</label>
+            <span th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}" class="error"></span>
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>

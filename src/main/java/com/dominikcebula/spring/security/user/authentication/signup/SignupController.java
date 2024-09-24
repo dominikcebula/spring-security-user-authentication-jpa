@@ -3,9 +3,12 @@ package com.dominikcebula.spring.security.user.authentication.signup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import static com.dominikcebula.spring.security.user.authentication.spring.BindingResultMapper.execute;
 
 @Controller
 public class SignupController {
@@ -20,10 +23,8 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-    public String processSignupRequest(@ModelAttribute SignupData signupData, Model model) {
-        model.addAttribute("signupData", signupData);
-
-        signupService.registerUser(signupData);
+    public String processSignupRequest(@ModelAttribute SignupData signupData, BindingResult bindingResult) {
+        execute(() -> signupService.registerUser(signupData), bindingResult);
 
         return "signup";
     }
