@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.shared;
+package com.dominikcebula.spring.security.user.authentication.users;
 
 import org.springframework.data.repository.ListCrudRepository;
 
