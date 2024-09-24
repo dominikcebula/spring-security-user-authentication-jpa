@@ -2,7 +2,7 @@ services:
   database:
     image: 'postgres:16.4'
     ports:
-      - '5432'
+      - '5432:5432'
     environment:
       - 'POSTGRES_DB=app_db'
       - 'POSTGRES_USER=app_user'
