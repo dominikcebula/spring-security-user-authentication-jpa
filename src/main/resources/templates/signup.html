@@ -9,30 +9,35 @@
         <h1 class="h3 mb-3 fw-normal">Sign up</h1>
 
         <div class="form-floating mb-2">
-            <input type="email" class="form-control" id="email" placeholder="name@example.com" th:field="*{email}">
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" th:field="*{email}"
+                   th:classappend="${#fields.hasAnyErrors()} ? (${#fields.hasErrors('email')} ? is-invalid : is-valid)">
             <label for="email">Email address</label>
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
         </div>
         <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="firstName" placeholder="" th:field="*{firstName}">
+            <input type="text" class="form-control" id="firstName" placeholder="" th:field="*{firstName}"
+                   th:classappend="${#fields.hasAnyErrors()} ? (${#fields.hasErrors('firstName')} ? is-invalid : is-valid)">
             <label for="firstName">First Name</label>
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="invalid-feedback"></div>
         </div>
         <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="lastName" placeholder="" th:field="*{lastName}">
+            <input type="text" class="form-control" id="lastName" placeholder="" th:field="*{lastName}"
+                   th:classappend="${#fields.hasAnyErrors()} ? (${#fields.hasErrors('lastName')} ? is-invalid : is-valid)">
             <label for="lastName">Last Name</label>
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback"></div>
         </div>
         <div class="form-floating mb-2">
-            <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}">
+            <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"
+                   th:classappend="${#fields.hasErrors('password')} ? is-invalid">
             <label for="password">Password</label>
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>
         </div>
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeated password"
-                   th:field="*{repeatedPassword}">
+                   th:classappend="${#fields.hasErrors('repeatedPassword')} ? is-invalid">
             <label for="repeatedPassword">Repeated password</label>
-            <span th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}" class="error"></span>
+            <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}"
+                 class="invalid-feedback"></div>
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
