@@ -34,10 +34,16 @@
         </div>
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="repeatedPassword" placeholder="Repeated password"
+                   th:field="*{repeatedPassword}"
                    th:classappend="${#fields.hasErrors('repeatedPassword')} ? is-invalid">
             <label for="repeatedPassword">Repeated password</label>
             <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}"
                  class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-floating mb-3" th:if="${#fields.hasGlobalErrors()}">
+            <span class="is-invalid"></span>
+            <div th:errors="*{global}" class="invalid-feedback"></div>
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>

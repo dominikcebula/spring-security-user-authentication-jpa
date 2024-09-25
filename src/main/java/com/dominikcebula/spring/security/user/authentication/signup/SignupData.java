@@ -1,10 +1,12 @@
 package com.dominikcebula.spring.security.user.authentication.signup;
 
+import com.dominikcebula.spring.security.user.authentication.signup.validation.PasswordMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
+@PasswordMatch(message = "Password and repeated password must match.")
 public class SignupData {
     @NotBlank(message = "Email address cannot be empty.")
     @Email(message = "Must be a valid e-mail address.")
