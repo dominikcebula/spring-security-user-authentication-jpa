@@ -6,15 +6,15 @@ import lombok.Data;
 
 @Data
 public class SignupData {
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email address cannot be empty.")
+    @Email(message = "Must be a valid e-mail address.")
     private String email;
-    @NotBlank
+    @NotBlank(message = "First Name cannot be empty.")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "Last Name cannot be empty.")
     private String lastName;
-    @NotBlank
+    @NotBlank(message = "Password cannot be empty.")
     private String password;
-    @NotBlank
+    @NotBlank(message = "Repeated password cannot be empty.")
     private String repeatedPassword;
 }
