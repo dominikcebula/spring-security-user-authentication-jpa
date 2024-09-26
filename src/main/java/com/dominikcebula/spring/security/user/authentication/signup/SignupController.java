@@ -26,6 +26,14 @@ public class SignupController {
     public String processSignupRequest(@ModelAttribute SignupData signupData, BindingResult bindingResult) {
         execute(() -> signupService.registerUser(signupData), bindingResult);
 
-        return "signup";
+        if (bindingResult.hasErrors())
+            return "signup";
+
+        return "redirect:/signupSuccessful";
+    }
+
+    @GetMapping("/signupSuccessful")
+    public String signupSuccessful() {
+        return "signupSuccessful";
     }
 }
