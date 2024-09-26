@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">>
+      layout:decorate="~{layout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <body>
 <main layout:fragment="content">
-    <div class="p-5 mt-4 text-center bg-body-tertiary rounded-3">
+    <div sec:authorize="isAnonymous()" class="p-5 mt-4 text-center bg-body-tertiary rounded-3">
         <i class="bi me-2 bi-shield-x text-danger" style="font-size: 4rem;"></i>
         <h1 class="text-body-emphasis">Authentication Status</h1>
         <p class="col-lg-8 mx-auto fs-5 text-muted">
@@ -13,6 +14,14 @@
 
         <p class="col-lg-8 mx-auto fs-5 text-muted">
             Use Login and Sign-up link in the header of this page to get started.
+        </p>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" class="p-5 mt-4 text-center bg-body-tertiary rounded-3">
+        <i class="bi me-2 bi-shield-check text-success" style="font-size: 4rem;"></i>
+        <h1 class="text-body-emphasis">Authentication Status</h1>
+        <p class="col-lg-8 mx-auto fs-5 text-muted">
+            You are logged in as <span sec:authentication="name"></span>.
         </p>
     </div>
 </main>
