@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.spring;
+package com.dominikcebula.spring.security.user.authentication.spring.validation;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

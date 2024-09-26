@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.dominikcebula.spring.security.user.authentication.spring.BindingResultMapper.execute;
+import static com.dominikcebula.spring.security.user.authentication.spring.validation.BindingResultMapper.execute;
 
 @Controller
 public class SignupController {
