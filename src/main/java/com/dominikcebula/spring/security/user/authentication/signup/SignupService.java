@@ -2,8 +2,10 @@ package com.dominikcebula.spring.security.user.authentication.signup;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
+import com.dominikcebula.spring.security.user.authentication.users.events.OnUserRegistrationCompletedEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,16 @@ public class SignupService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     public UserRegistrationResult registerUser(@Valid SignupData signupData) {
         User user = new User(signupData.getEmail(), passwordEncoder.encode(signupData.getPassword()), ROLE_USER, true);
 
         try {
             userRepository.save(user);
+
+            eventPublisher.publishEvent(new OnUserRegistrationCompletedEvent(user));
 
             return USER_REGISTERED_SUCCESSFULLY;
         } catch (DataIntegrityViolationException e) {
