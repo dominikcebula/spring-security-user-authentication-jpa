@@ -11,7 +11,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .formLogin(form -> form.loginPage("/login").permitAll())
+                .formLogin(form -> form.loginPage("/login"))
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/home"))
                 .build();
     }
 }
