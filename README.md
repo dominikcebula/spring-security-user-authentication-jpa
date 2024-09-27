@@ -9,6 +9,7 @@ TBD
 ## Use Cases
 
 * Log in
+* Remember me
 * Sign up
 * E-mail verification
 * Password reset
