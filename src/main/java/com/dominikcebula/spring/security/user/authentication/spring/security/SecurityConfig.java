@@ -1,5 +1,6 @@
 package com.dominikcebula.spring.security.user.authentication.spring.security;
 
+import com.dominikcebula.spring.security.user.authentication.login.LoginFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,11 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, PersistentTokenRepository tokenRepository) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, PersistentTokenRepository tokenRepository,
+                                                   LoginFailureHandler loginFailureHandler) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .formLogin(form -> form.loginPage("/login"))
+                .formLogin(form -> form.loginPage("/login").failureHandler(loginFailureHandler))
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/home"))
                 .rememberMe(rememberMe -> rememberMe.tokenRepository(tokenRepository))
                 .build();

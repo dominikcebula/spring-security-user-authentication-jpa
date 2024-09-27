@@ -26,7 +26,7 @@
 
         <div class="my-3">
             <span class="is-invalid"></span>
-            <div th:if="${param.error}" class="invalid-feedback">Invalid username or password.</div>
+            <div th:if="${param.error}" th:text="${session[AUTH_FAILED_MESSAGE]}" class="invalid-feedback"></div>
             <div th:if="${param.logout}" class="invalid-feedback">You have been logged out.</div>
         </div>
 
