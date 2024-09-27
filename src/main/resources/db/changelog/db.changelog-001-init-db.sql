@@ -3,7 +3,8 @@ create table users (
 	username varchar(64) not null,
 	password varchar(64) not null,
 	role varchar(50) not null,
-	enabled boolean not null
+	enabled boolean not null,
+	UNIQUE (username)
 );
 
 create table persistent_logins (

@@ -5,18 +5,19 @@ import org.springframework.validation.BindingResult;
 
 public class BindingResultMapper<E extends Exception> {
     @SuppressWarnings("unchecked")
-    public static <E extends Exception> void execute(Operation operation, BindingResult bindingResult) throws E {
+    public static <R, E extends Exception> R execute(Operation<R> operation, BindingResult bindingResult, R defaultResult) throws E {
         try {
-            operation.execute();
+            return operation.execute();
         } catch (ConstraintViolationException e) {
             ConstraintViolationProcessor.addErrors(e, bindingResult);
+            return defaultResult;
         } catch (Exception e) {
             throw (E) e;
         }
     }
 
     @FunctionalInterface
-    public interface Operation {
-        void execute() throws Exception;
+    public interface Operation<R> {
+        R execute() throws Exception;
     }
 }
