@@ -1,4 +1,4 @@
-[![CI Pipeline](https://github.com/dominikcebula/java21-spring-boot3-web-archetype/actions/workflows/maven.yml/badge.svg)](https://github.com/dominikcebula/java21-spring-boot3-web-archetype/actions/workflows/maven.yml)
+[![CI Pipeline](https://github.com/dominikcebula/spring-security-user-authentication-jpa/actions/workflows/maven.yml/badge.svg)](https://github.com/dominikcebula/spring-security-user-authentication-jpa/actions/workflows/maven.yml)
 
 # Spring Security User Authentication with JPA
 
