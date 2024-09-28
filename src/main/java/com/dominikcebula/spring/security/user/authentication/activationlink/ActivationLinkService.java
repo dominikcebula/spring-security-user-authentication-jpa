@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
@@ -16,6 +17,8 @@ import static com.dominikcebula.spring.security.user.authentication.activationli
 
 @Component
 public class ActivationLinkService {
+    private static final int ACTIVATION_LINK_EXPIRY_DATE_DAYS = 1;
+
     @Autowired
     private ActivationTokenFactory activationTokenFactory;
     @Autowired
@@ -47,7 +50,9 @@ public class ActivationLinkService {
 
     private String createStoredActivationToken(User user) {
         String activationToken = activationTokenFactory.create();
-        ActivationLink activationLink = new ActivationLink(user, activationToken);
+        ZonedDateTime expiryDate = ZonedDateTime.now().plusDays(ACTIVATION_LINK_EXPIRY_DATE_DAYS);
+
+        ActivationLink activationLink = new ActivationLink(user, activationToken, expiryDate);
 
         activationLinkRepository.save(activationLink);
 

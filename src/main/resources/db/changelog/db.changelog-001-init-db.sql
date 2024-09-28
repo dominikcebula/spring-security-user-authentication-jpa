@@ -18,5 +18,6 @@ create table activation_links (
     link_id serial primary key,
     user_id serial references users(user_id),
     token char(36) not null,
+    expiry_date timestamp with time zone not null,
     UNIQUE (link_id, user_id)
 );

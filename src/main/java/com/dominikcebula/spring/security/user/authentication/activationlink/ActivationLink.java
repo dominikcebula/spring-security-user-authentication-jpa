@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
+
 @Entity
 @Table(name = "activation_links")
 @Data
@@ -21,8 +23,11 @@ public class ActivationLink {
 
     private String token;
 
-    public ActivationLink(User user, String token) {
+    private ZonedDateTime expiryDate;
+
+    public ActivationLink(User user, String token, ZonedDateTime expiryDate) {
         this.user = user;
         this.token = token;
+        this.expiryDate = expiryDate;
     }
 }
