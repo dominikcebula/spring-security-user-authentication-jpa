@@ -12,6 +12,6 @@ public class OnUserRegistrationCompletedListener implements ApplicationListener<
 
     @Override
     public void onApplicationEvent(OnUserRegistrationCompletedEvent event) {
-        activationLinkService.sendActivationLink(event.getUser());
+        activationLinkService.createAndSendActivationLink(event.getUser());
     }
 }

@@ -13,3 +13,10 @@ create table persistent_logins (
     token varchar(64) not null,
     last_used timestamp not null
 );
+
+create table activation_links (
+    link_id serial primary key,
+    user_id serial references users(user_id),
+    token char(36) not null,
+    UNIQUE (link_id, user_id)
+);
