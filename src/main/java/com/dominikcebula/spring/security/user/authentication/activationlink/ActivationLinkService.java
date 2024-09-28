@@ -51,7 +51,7 @@ public class ActivationLinkService {
     }
 
     private boolean isExpired(ActivationLink activationLink) {
-        return activationLink.getExpiryDate().isAfter(ZonedDateTime.now());
+        return ZonedDateTime.now().isAfter(activationLink.getExpiryDate());
     }
 
     private String createStoredActivationToken(User user) {
