@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ActivationLinkController {
+    static final String ENDPOINT_ACTIVATE = "/activate";
+
     @Autowired
     private ActivationLinkService activationLinkService;
 
-    @GetMapping("/activate")
+    @GetMapping(ENDPOINT_ACTIVATE)
     public String activate(@RequestParam("token") String token) {
         return "activate";
     }

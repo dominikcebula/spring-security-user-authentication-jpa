@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
+
 @Component
 public class ActivationLinkService {
     @Autowired
@@ -56,6 +58,6 @@ public class ActivationLinkService {
                 .fromCurrentContextPath()
                 .build()
                 .toUri()
-                .resolve("/activate") + "?token=" + activationToken;
+                .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationToken;
     }
 }
