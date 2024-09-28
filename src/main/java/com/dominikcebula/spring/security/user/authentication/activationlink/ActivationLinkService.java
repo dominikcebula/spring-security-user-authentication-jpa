@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Component
 public class ActivationLinkService {
@@ -14,6 +15,10 @@ public class ActivationLinkService {
     private ActivationLinkRepository activationLinkRepository;
     @Autowired
     private JavaMailSender mailSender;
+
+    public void activateAccount(String token) {
+
+    }
 
     public void createAndSendActivationLink(User user) {
         String activationToken = createStoredActivationToken(user);
@@ -31,7 +36,7 @@ public class ActivationLinkService {
     }
 
     private void sendActivationEmail(User user, String activationToken) {
-        String activationUrl = activationToken;
+        String activationUrl = getActivationUrl(activationToken);
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getUsername());
@@ -44,5 +49,13 @@ public class ActivationLinkService {
                         """.formatted(activationUrl)
         );
         mailSender.send(email);
+    }
+
+    private String getActivationUrl(String activationToken) {
+        return ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .build()
+                .toUri()
+                .resolve("/activate") + "?token=" + activationToken;
     }
 }

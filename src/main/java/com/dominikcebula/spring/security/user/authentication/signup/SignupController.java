@@ -1,5 +1,6 @@
 package com.dominikcebula.spring.security.user.authentication.signup;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-    public String processSignupRequest(@ModelAttribute SignupData signupData, BindingResult bindingResult) {
+    public String processSignupRequest(@ModelAttribute SignupData signupData, BindingResult bindingResult, HttpServletRequest request) {
         UserRegistrationResult result = execute(() -> signupService.registerUser(signupData), bindingResult, USER_DATA_INVALID);
 
         if (result == USER_ALREADY_EXISTS)
