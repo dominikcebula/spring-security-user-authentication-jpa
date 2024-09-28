@@ -6,15 +6,30 @@
 <body>
 <main layout:fragment="content">
     <div class="container my-5">
-        <div class="position-relative p-5 text-center text-muted bg-body">
-            <i class="bi bi-check2-circle fs-1"></i>
-            <h1 class="text-body-emphasis">Account activated.</h1>
-            <p class="col-lg-6 mx-auto mb-4">
-                You can now log in into your account.
-            </p>
-            <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
-                OK
-            </a>
+        <div th:switch="${activationResult.name()}">
+            <div th:case="ACCOUNT_ACTIVATED"
+                 class="position-relative p-5 text-center text-muted bg-body">
+                <i class="bi bi-check2-circle fs-1"></i>
+                <h1 class="text-body-emphasis">Account activated.</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    You can now log in into your account.
+                </p>
+                <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
+                    OK
+                </a>
+            </div>
+
+            <div th:case="ACTIVATION_TOKEN_MISSING"
+                 class="position-relative p-5 text-center text-muted bg-body">
+                <i class="bi bi-x-circle fs-1"></i>
+                <h1 class="text-body-emphasis">Activation token not found.</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    Account was not activated due to missing activation token.
+                </p>
+                <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
+                    OK
+                </a>
+            </div>
         </div>
     </div>
 </main>

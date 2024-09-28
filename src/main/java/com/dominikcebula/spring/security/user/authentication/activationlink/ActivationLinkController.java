@@ -2,8 +2,11 @@ package com.dominikcebula.spring.security.user.authentication.activationlink;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult;
 
 @Controller
 public class ActivationLinkController {
@@ -13,7 +16,11 @@ public class ActivationLinkController {
     private ActivationLinkService activationLinkService;
 
     @GetMapping(ENDPOINT_ACTIVATE)
-    public String activate(@RequestParam("token") String token) {
+    public String activate(@RequestParam(value = "token", required = false) String token, Model model) {
+        ActivationResult activationResult = activationLinkService.activateAccount(token);
+
+        model.addAttribute("activationResult", activationResult);
+
         return "activate";
     }
 }

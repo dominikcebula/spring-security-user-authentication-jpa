@@ -1,13 +1,18 @@
 package com.dominikcebula.spring.security.user.authentication.activationlink;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
+import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.Optional;
+
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.ACCOUNT_ACTIVATED;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.ACTIVATION_TOKEN_MISSING;
 
 @Component
 public class ActivationLinkService {
@@ -16,10 +21,22 @@ public class ActivationLinkService {
     @Autowired
     private ActivationLinkRepository activationLinkRepository;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private JavaMailSender mailSender;
 
-    public void activateAccount(String token) {
+    public ActivationResult activateAccount(String token) {
+        Optional<ActivationLink> activationLink = activationLinkRepository.findByToken(token);
 
+        if (activationLink.isEmpty())
+            return ACTIVATION_TOKEN_MISSING;
+
+        User user = activationLink.get().getUser();
+        user.setEnabled(true);
+
+        userRepository.save(user);
+
+        return ACCOUNT_ACTIVATED;
     }
 
     public void createAndSendActivationLink(User user) {
@@ -59,5 +76,10 @@ public class ActivationLinkService {
                 .build()
                 .toUri()
                 .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationToken;
+    }
+
+    enum ActivationResult {
+        ACCOUNT_ACTIVATED,
+        ACTIVATION_TOKEN_MISSING
     }
 }
