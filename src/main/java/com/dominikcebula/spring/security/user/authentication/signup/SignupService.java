@@ -28,7 +28,7 @@ public class SignupService {
     private ApplicationEventPublisher eventPublisher;
 
     public UserRegistrationResult registerUser(@Valid SignupData signupData) {
-        User user = new User(signupData.getEmail(), passwordEncoder.encode(signupData.getPassword()), ROLE_USER, true);
+        User user = new User(signupData.getEmail(), passwordEncoder.encode(signupData.getPassword()), ROLE_USER, false);
 
         try {
             userRepository.save(user);
