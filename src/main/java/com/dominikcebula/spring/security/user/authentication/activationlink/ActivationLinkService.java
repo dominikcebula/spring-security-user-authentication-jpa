@@ -45,28 +45,32 @@ public class ActivationLinkService {
     }
 
     public void createAndSendActivationLink(User user) {
-        String activationToken = createStoredActivationToken(user);
+        ActivationLink activationLink = createStoredActivationLink(user);
 
-        sendActivationEmail(user, activationToken);
+        sendActivationEmail(user, activationLink);
     }
 
     private boolean isExpired(ActivationLink activationLink) {
         return ZonedDateTime.now().isAfter(activationLink.getExpiryDate());
     }
 
-    private String createStoredActivationToken(User user) {
-        String activationToken = activationTokenFactory.create();
-        ZonedDateTime expiryDate = ZonedDateTime.now().plusDays(ACTIVATION_LINK_EXPIRY_DATE_DAYS);
-
-        ActivationLink activationLink = new ActivationLink(user, activationToken, expiryDate);
+    private ActivationLink createStoredActivationLink(User user) {
+        ActivationLink activationLink = createActivationLink(user);
 
         activationLinkRepository.save(activationLink);
 
-        return activationToken;
+        return activationLink;
     }
 
-    private void sendActivationEmail(User user, String activationToken) {
-        String activationUrl = getActivationUrl(activationToken);
+    private ActivationLink createActivationLink(User user) {
+        String activationToken = activationTokenFactory.create();
+        ZonedDateTime expiryDate = ZonedDateTime.now().plusDays(ACTIVATION_LINK_EXPIRY_DATE_DAYS);
+
+        return new ActivationLink(user, activationToken, expiryDate);
+    }
+
+    private void sendActivationEmail(User user, ActivationLink activationLink) {
+        String activationUrl = getActivationUrl(activationLink);
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getUsername());
@@ -81,12 +85,12 @@ public class ActivationLinkService {
         mailSender.send(email);
     }
 
-    private String getActivationUrl(String activationToken) {
+    private String getActivationUrl(ActivationLink activationLink) {
         return ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .build()
                 .toUri()
-                .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationToken;
+                .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationLink.getToken();
     }
 
     enum ActivationResult {
