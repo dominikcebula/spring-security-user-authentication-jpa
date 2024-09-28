@@ -30,6 +30,18 @@
                     OK
                 </a>
             </div>
+
+            <div th:case="ACTIVATION_TOKEN_EXPIRED"
+                 class="position-relative p-5 text-center text-muted bg-body">
+                <i class="bi bi-x-circle fs-1"></i>
+                <h1 class="text-body-emphasis">Activation token expired.</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    Account was not activated due to expired activation token.
+                </p>
+                <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
+                    OK
+                </a>
+            </div>
         </div>
     </div>
 </main>

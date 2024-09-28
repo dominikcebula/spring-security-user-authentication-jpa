@@ -12,8 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
-import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.ACCOUNT_ACTIVATED;
-import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.ACTIVATION_TOKEN_MISSING;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.*;
 
 @Component
 public class ActivationLinkService {
@@ -34,6 +33,9 @@ public class ActivationLinkService {
         if (activationLink.isEmpty())
             return ACTIVATION_TOKEN_MISSING;
 
+        if (isExpired(activationLink.get()))
+            return ACTIVATION_TOKEN_EXPIRED;
+
         User user = activationLink.get().getUser();
         user.setEnabled(true);
 
@@ -46,6 +48,10 @@ public class ActivationLinkService {
         String activationToken = createStoredActivationToken(user);
 
         sendActivationEmail(user, activationToken);
+    }
+
+    private boolean isExpired(ActivationLink activationLink) {
+        return activationLink.getExpiryDate().isAfter(ZonedDateTime.now());
     }
 
     private String createStoredActivationToken(User user) {
@@ -85,6 +91,7 @@ public class ActivationLinkService {
 
     enum ActivationResult {
         ACCOUNT_ACTIVATED,
-        ACTIVATION_TOKEN_MISSING
+        ACTIVATION_TOKEN_MISSING,
+        ACTIVATION_TOKEN_EXPIRED
     }
 }
