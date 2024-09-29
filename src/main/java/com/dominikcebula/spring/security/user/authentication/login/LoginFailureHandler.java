@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+import static com.dominikcebula.spring.security.user.authentication.login.LoginFailureHandler.AuthFailedError.*;
+
 @Component
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
@@ -19,14 +21,24 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         setDefaultFailureUrl("/login?error");
         super.onAuthenticationFailure(request, response, exception);
 
-        request.getSession().setAttribute("AUTH_FAILED_MESSAGE", getErrorMessage(exception));
+        handleAuthenticationException(request, exception);
     }
 
-    private String getErrorMessage(AuthenticationException exception) {
-        return switch (exception) {
-            case BadCredentialsException e -> "Invalid username or password.";
-            case DisabledException e -> "Account was not activated yet.";
-            default -> "Login error.";
-        };
+    private void handleAuthenticationException(HttpServletRequest request, AuthenticationException exception) {
+        switch (exception) {
+            case BadCredentialsException e -> setAuthFailedErrorAttribute(request, INVALID_USERNAME_OR_PASSWORD);
+            case DisabledException e -> setAuthFailedErrorAttribute(request, ACCOUNT_NOT_ACTIVATED);
+            default -> setAuthFailedErrorAttribute(request, UNKNOWN_LOGIN_ERROR);
+        }
+    }
+
+    private void setAuthFailedErrorAttribute(HttpServletRequest request, AuthFailedError authFailedError) {
+        request.getSession().setAttribute("AUTH_FAILED_ERROR", authFailedError);
+    }
+
+    enum AuthFailedError {
+        INVALID_USERNAME_OR_PASSWORD,
+        ACCOUNT_NOT_ACTIVATED,
+        UNKNOWN_LOGIN_ERROR
     }
 }
