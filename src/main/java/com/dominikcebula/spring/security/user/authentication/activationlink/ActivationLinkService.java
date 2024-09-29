@@ -2,17 +2,16 @@ package com.dominikcebula.spring.security.user.authentication.activationlink;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
-import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult.*;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.TokenRegenerationResult.TOKEN_MISSING;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.TokenRegenerationResult.TOKEN_REGENERATED;
 
 @Component
 public class ActivationLinkService {
@@ -25,7 +24,7 @@ public class ActivationLinkService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private JavaMailSender mailSender;
+    private ActivationEmailService activationEmailService;
 
     public ActivationResult activateAccount(String token) {
         Optional<ActivationLink> activationLink = activationLinkRepository.findByToken(token);
@@ -44,10 +43,24 @@ public class ActivationLinkService {
         return ACCOUNT_ACTIVATED;
     }
 
+    @Transactional
     public void createAndSendActivationLink(User user) {
         ActivationLink activationLink = createStoredActivationLink(user);
 
-        sendActivationEmail(user, activationLink);
+        activationEmailService.sendActivationEmail(user, activationLink);
+    }
+
+    public TokenRegenerationResult regenerateExpiredActivationToken(String expiredToken) {
+        Optional<ActivationLink> expiredActivationLink = activationLinkRepository.findByToken(expiredToken);
+
+        if (expiredActivationLink.isEmpty())
+            return TOKEN_MISSING;
+
+        User user = expiredActivationLink.get().getUser();
+
+        regenerateAndSendActivationLink(expiredActivationLink.get(), user);
+
+        return TOKEN_REGENERATED;
     }
 
     private boolean isExpired(ActivationLink activationLink) {
@@ -69,33 +82,24 @@ public class ActivationLinkService {
         return new ActivationLink(user, activationToken, expiryDate);
     }
 
-    private void sendActivationEmail(User user, ActivationLink activationLink) {
-        String activationUrl = getActivationUrl(activationLink);
-
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(user.getUsername());
-        email.setSubject("Confirm Your Email to Activate Your Account");
-        email.setText(
-                """
-                        To complete your registration and activate your account,
-                        please confirm your email by clicking the link below:
-                        %s
-                        """.formatted(activationUrl)
-        );
-        mailSender.send(email);
+    @Transactional
+    private void regenerateAndSendActivationLink(ActivationLink expiredActivationLink, User user) {
+        deleteExpiredActivationLink(expiredActivationLink);
+        createAndSendActivationLink(user);
     }
 
-    private String getActivationUrl(ActivationLink activationLink) {
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .build()
-                .toUri()
-                .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationLink.getToken();
+    private void deleteExpiredActivationLink(ActivationLink expiredActivationLink) {
+        activationLinkRepository.delete(expiredActivationLink);
     }
 
     enum ActivationResult {
         ACCOUNT_ACTIVATED,
         ACTIVATION_TOKEN_MISSING,
         ACTIVATION_TOKEN_EXPIRED
+    }
+
+    enum TokenRegenerationResult {
+        TOKEN_REGENERATED,
+        TOKEN_MISSING
     }
 }

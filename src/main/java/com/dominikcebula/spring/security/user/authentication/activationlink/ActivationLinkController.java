@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.ActivationResult;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService.TokenRegenerationResult;
 
 @Controller
 public class ActivationLinkController {
@@ -25,9 +25,11 @@ public class ActivationLinkController {
         return "activate";
     }
 
-    @PostMapping("/regenerateActivationToken")
-    public String regenerateActivationToken(@RequestParam(value = "token", required = false) String token) {
-        // TODO
+    @GetMapping("/regenerateActivationToken")
+    public String regenerateActivationToken(@RequestParam(value = "token", required = false) String token, Model model) {
+        TokenRegenerationResult tokenRegenerationResult = activationLinkService.regenerateExpiredActivationToken(token);
+
+        model.addAttribute("tokenRegenerationResult", tokenRegenerationResult);
 
         return "activateTokenRegeneration";
     }

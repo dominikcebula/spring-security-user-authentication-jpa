@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}"
+      xmlns:th="https://www.thymeleaf.org">
+<body>
+<main layout:fragment="content">
+    <div class="container my-5">
+        <div th:switch="${tokenRegenerationResult.name()}">
+            <div th:case="TOKEN_REGENERATED"
+                 class="position-relative p-5 text-center text-muted bg-body">
+                <i class="bi bi-check2-circle fs-1"></i>
+                <h1 class="text-body-emphasis">Token regenerated.</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    Expired token was regenerated, check your e-mail to activate your account.
+                </p>
+                <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
+                    OK
+                </a>
+            </div>
+
+            <div th:case="TOKEN_MISSING"
+                 class="position-relative p-5 text-center text-muted bg-body">
+                <i class="bi bi-x-circle fs-1"></i>
+                <h1 class="text-body-emphasis">Token for regeneration not found.</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    Token was not regenerated due to missing activation token.
+                </p>
+                <a th:href="@{/login}" class="btn btn-primary px-5 mb-5" type="button">
+                    OK
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
