@@ -63,6 +63,11 @@ public class ActivationLinkService {
         return TOKEN_REGENERATED;
     }
 
+    public Optional<String> getActivationTokenForAccount(String username) {
+        return activationLinkRepository.findByUsername(username)
+                .map(ActivationLink::getToken);
+    }
+
     private boolean isExpired(ActivationLink activationLink) {
         return ZonedDateTime.now().isAfter(activationLink.getExpiryDate());
     }

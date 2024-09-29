@@ -29,7 +29,16 @@
             <td th:if="${param.error}" th:switch="${session[AUTH_FAILED_ERROR].name()}">
                 <div th:case="INVALID_USERNAME_OR_PASSWORD" class="invalid-feedback">Invalid username or password.</div>
 
-                <div th:case="ACCOUNT_NOT_ACTIVATED" class="invalid-feedback">Account was not activated yet.</div>
+                <div th:case="ACCOUNT_NOT_ACTIVATED" class="invalid-feedback">
+                    Account was not activated yet.
+
+                    <span th:if="${session[ACTIVATION_TOKEN].isPresent()}">
+                        If you did not receive an activation token, you can
+                        <a th:href="@{/regenerateActivationToken(token=${session[ACTIVATION_TOKEN].get()})}">
+                            regenerate it.
+                        </a>
+                    </span>
+                </div>
 
                 <div th:case="UNKNOWN_LOGIN_ERROR" class="invalid-feedback">Login error.</div>
             </td>
