@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.signup.validation;
+package com.dominikcebula.spring.security.user.authentication.common.validation.password;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
