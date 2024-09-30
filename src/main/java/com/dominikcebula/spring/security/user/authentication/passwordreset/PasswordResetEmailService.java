@@ -1,12 +1,12 @@
 package com.dominikcebula.spring.security.user.authentication.passwordreset;
 
+import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetController.ENDPOINT_PASSWORD_RESET_USING_TOKEN;
 import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetEmailService.PasswordResetEmailSendResult.PASSWORD_RESET_EMAIL_SENDING_ERROR;
@@ -45,10 +45,8 @@ public class PasswordResetEmailService {
     }
 
     private String getPasswordResetUrl(PasswordResetLink passwordResetLink) {
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .build()
-                .toUri()
+        return ServerUrlResolver
+                .getServerUrl()
                 .resolve(ENDPOINT_PASSWORD_RESET_USING_TOKEN) + "?token=" + passwordResetLink.getToken();
     }
 

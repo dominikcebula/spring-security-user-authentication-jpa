@@ -1,11 +1,11 @@
 package com.dominikcebula.spring.security.user.authentication.activationlink;
 
+import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
 
@@ -31,10 +31,8 @@ public class ActivationEmailService {
     }
 
     private String getActivationUrl(ActivationLink activationLink) {
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .build()
-                .toUri()
+        return ServerUrlResolver
+                .getServerUrl()
                 .resolve(ENDPOINT_ACTIVATE) + "?token=" + activationLink.getToken();
     }
 }
