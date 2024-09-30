@@ -25,6 +25,10 @@
         </div>
 
         <div class="my-3">
+            <a th:href="@{/passwordReset}">Forgot password?</a>
+        </div>
+
+        <div class="my-3">
             <span class="is-invalid"></span>
             <td th:if="${param.error}" th:switch="${session[AUTH_FAILED_ERROR].name()}">
                 <div th:case="INVALID_USERNAME_OR_PASSWORD" class="invalid-feedback">Invalid username or password.</div>

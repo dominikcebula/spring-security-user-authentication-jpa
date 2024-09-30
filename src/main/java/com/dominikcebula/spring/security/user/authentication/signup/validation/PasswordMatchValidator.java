@@ -1,14 +1,13 @@
 package com.dominikcebula.spring.security.user.authentication.signup.validation;
 
-import com.dominikcebula.spring.security.user.authentication.signup.SignupData;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 
-public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, SignupData> {
-    public boolean isValid(SignupData signupData, ConstraintValidatorContext constraintValidatorContext) {
-        String password = signupData.getPassword();
-        String repeatPassword = signupData.getRepeatedPassword();
+public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, PasswordDataProvider> {
+    public boolean isValid(PasswordDataProvider passwordDataProvider, ConstraintValidatorContext constraintValidatorContext) {
+        String password = passwordDataProvider.getPassword();
+        String repeatPassword = passwordDataProvider.getRepeatedPassword();
 
         return StringUtils.equals(password, repeatPassword);
     }

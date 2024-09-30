@@ -1,21 +1,15 @@
-package com.dominikcebula.spring.security.user.authentication.signup;
+package com.dominikcebula.spring.security.user.authentication.passwordreset;
 
 import com.dominikcebula.spring.security.user.authentication.signup.validation.PasswordDataProvider;
 import com.dominikcebula.spring.security.user.authentication.signup.validation.PasswordMatch;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 @PasswordMatch(message = "Password and repeated password must match.")
-public class SignupData implements PasswordDataProvider {
-    @NotBlank(message = "Email address cannot be empty.")
-    @Email(message = "Must be a valid e-mail address.")
-    private String email;
-    @NotBlank(message = "First Name cannot be empty.")
-    private String firstName;
-    @NotBlank(message = "Last Name cannot be empty.")
-    private String lastName;
+public class PasswordResetData implements PasswordDataProvider {
+    @NotBlank(message = "Token cannot be empty.")
+    private String token;
     @NotBlank(message = "Password cannot be empty.")
     private String password;
     @NotBlank(message = "Repeated password cannot be empty.")
