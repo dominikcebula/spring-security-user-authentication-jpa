@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.passwordreset;
+package com.dominikcebula.spring.security.user.authentication.passwordreset.db;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

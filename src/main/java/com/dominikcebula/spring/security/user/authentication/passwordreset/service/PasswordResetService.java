@@ -1,5 +1,9 @@
-package com.dominikcebula.spring.security.user.authentication.passwordreset;
+package com.dominikcebula.spring.security.user.authentication.passwordreset.service;
 
+import com.dominikcebula.spring.security.user.authentication.passwordreset.db.PasswordResetLink;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.db.PasswordResetLinkRepository;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetData;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetEmailData;
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
 import jakarta.validation.Valid;
@@ -12,9 +16,9 @@ import org.springframework.validation.annotation.Validated;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetEmailService.PasswordResetEmailSendResult;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetService.PasswordResetResult.*;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetService.SendPasswordResetLinkResult.*;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetEmailService.PasswordResetEmailSendResult;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService.PasswordResetResult.*;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService.SendPasswordResetLinkResult.*;
 
 @Service
 @Validated
@@ -87,7 +91,7 @@ public class PasswordResetService {
         return ZonedDateTime.now().isAfter(passwordResetLink.getExpiryDate());
     }
 
-    enum SendPasswordResetLinkResult {
+    public enum SendPasswordResetLinkResult {
         PASSWORD_RESET_DATA_INVALID(false),
         PASSWORD_RESET_USER_DOES_NOT_EXISTS_PRETENDED_SUCCESS(true),
         PASSWORD_RESET_LINK_SENDING_ERROR(false),
@@ -104,7 +108,7 @@ public class PasswordResetService {
         }
     }
 
-    enum PasswordResetResult {
+    public enum PasswordResetResult {
         PASSWORD_RESET_STATUS_UNKNOWN(false),
         PASSWORD_RESET_DATA_INVALID(false),
         PASSWORD_RESET_TOKEN_NOT_FOUND(false),

@@ -1,5 +1,7 @@
-package com.dominikcebula.spring.security.user.authentication.signup;
+package com.dominikcebula.spring.security.user.authentication.signup.web;
 
+import com.dominikcebula.spring.security.user.authentication.signup.dto.SignupData;
+import com.dominikcebula.spring.security.user.authentication.signup.service.SignupService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.dominikcebula.spring.security.user.authentication.signup.SignupService.UserRegistrationResult;
-import static com.dominikcebula.spring.security.user.authentication.signup.SignupService.UserRegistrationResult.USER_ALREADY_EXISTS;
-import static com.dominikcebula.spring.security.user.authentication.signup.SignupService.UserRegistrationResult.USER_DATA_INVALID;
+import static com.dominikcebula.spring.security.user.authentication.signup.service.SignupService.UserRegistrationResult;
+import static com.dominikcebula.spring.security.user.authentication.signup.service.SignupService.UserRegistrationResult.USER_ALREADY_EXISTS;
+import static com.dominikcebula.spring.security.user.authentication.signup.service.SignupService.UserRegistrationResult.USER_DATA_INVALID;
 import static com.dominikcebula.spring.security.user.authentication.spring.validation.BindingResultMapper.execute;
 
 @Controller

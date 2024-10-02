@@ -1,6 +1,6 @@
 package com.dominikcebula.spring.security.user.authentication.login;
 
-import com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkService;
+import com.dominikcebula.spring.security.user.authentication.activationlink.service.ActivationLinkService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,5 +1,8 @@
-package com.dominikcebula.spring.security.user.authentication.passwordreset;
+package com.dominikcebula.spring.security.user.authentication.passwordreset.web;
 
+import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetData;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetEmailData;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetService.PasswordResetResult;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetService.PasswordResetResult.PASSWORD_RESET_STATUS_UNKNOWN;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetService.SendPasswordResetLinkResult;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService.PasswordResetResult;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService.PasswordResetResult.PASSWORD_RESET_STATUS_UNKNOWN;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetService.SendPasswordResetLinkResult;
 import static com.dominikcebula.spring.security.user.authentication.spring.validation.BindingResultMapper.execute;
 
 @Controller
 public class PasswordResetController {
-    static final String ENDPOINT_PASSWORD_RESET_USING_TOKEN = "/passwordResetUsingToken";
+    public static final String ENDPOINT_PASSWORD_RESET_USING_TOKEN = "/passwordResetUsingToken";
 
     @Autowired
     private PasswordResetService passwordResetService;

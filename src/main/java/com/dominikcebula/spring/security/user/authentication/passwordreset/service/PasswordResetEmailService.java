@@ -1,6 +1,7 @@
-package com.dominikcebula.spring.security.user.authentication.passwordreset;
+package com.dominikcebula.spring.security.user.authentication.passwordreset.service;
 
 import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
+import com.dominikcebula.spring.security.user.authentication.passwordreset.db.PasswordResetLink;
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetController.ENDPOINT_PASSWORD_RESET_USING_TOKEN;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetEmailService.PasswordResetEmailSendResult.PASSWORD_RESET_EMAIL_SENDING_ERROR;
-import static com.dominikcebula.spring.security.user.authentication.passwordreset.PasswordResetEmailService.PasswordResetEmailSendResult.PASSWORD_RESET_EMAIL_SENT_SUCCESSFULLY;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetEmailService.PasswordResetEmailSendResult.PASSWORD_RESET_EMAIL_SENDING_ERROR;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.service.PasswordResetEmailService.PasswordResetEmailSendResult.PASSWORD_RESET_EMAIL_SENT_SUCCESSFULLY;
+import static com.dominikcebula.spring.security.user.authentication.passwordreset.web.PasswordResetController.ENDPOINT_PASSWORD_RESET_USING_TOKEN;
 
 @Service
 @Slf4j

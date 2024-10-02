@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.users.events;
+package com.dominikcebula.spring.security.user.authentication.users.event;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import lombok.Getter;

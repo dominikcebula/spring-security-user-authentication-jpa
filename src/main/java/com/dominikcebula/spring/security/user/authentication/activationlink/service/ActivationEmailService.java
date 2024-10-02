@@ -1,5 +1,6 @@
-package com.dominikcebula.spring.security.user.authentication.activationlink;
+package com.dominikcebula.spring.security.user.authentication.activationlink.service;
 
+import com.dominikcebula.spring.security.user.authentication.activationlink.db.ActivationLink;
 import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import static com.dominikcebula.spring.security.user.authentication.activationlink.ActivationLinkController.ENDPOINT_ACTIVATE;
+import static com.dominikcebula.spring.security.user.authentication.activationlink.web.ActivationLinkController.ENDPOINT_ACTIVATE;
 
 @Service
 public class ActivationEmailService {

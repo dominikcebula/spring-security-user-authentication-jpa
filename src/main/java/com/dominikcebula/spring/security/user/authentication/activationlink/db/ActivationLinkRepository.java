@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.activationlink;
+package com.dominikcebula.spring.security.user.authentication.activationlink.db;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;

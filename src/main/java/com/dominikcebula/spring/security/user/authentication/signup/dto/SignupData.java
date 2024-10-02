@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.signup;
+package com.dominikcebula.spring.security.user.authentication.signup.dto;
 
 import com.dominikcebula.spring.security.user.authentication.common.validation.password.PasswordDataProvider;
 import com.dominikcebula.spring.security.user.authentication.common.validation.password.PasswordMatch;

@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.activationlink;
+package com.dominikcebula.spring.security.user.authentication.passwordreset.db;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import jakarta.persistence.*;
@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "activation_links")
+@Table(name = "password_reset_links")
 @Data
 @NoArgsConstructor
-public class ActivationLink {
+public class PasswordResetLink {
     @Id
     @Column(name = "link_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class ActivationLink {
 
     private ZonedDateTime expiryDate;
 
-    public ActivationLink(User user, String token, ZonedDateTime expiryDate) {
+    public PasswordResetLink(User user, String token, ZonedDateTime expiryDate) {
         this.user = user;
         this.token = token;
         this.expiryDate = expiryDate;

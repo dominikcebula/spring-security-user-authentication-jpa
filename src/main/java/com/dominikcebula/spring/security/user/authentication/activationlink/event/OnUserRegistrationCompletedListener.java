@@ -1,6 +1,7 @@
-package com.dominikcebula.spring.security.user.authentication.activationlink;
+package com.dominikcebula.spring.security.user.authentication.activationlink.event;
 
-import com.dominikcebula.spring.security.user.authentication.users.events.OnUserRegistrationCompletedEvent;
+import com.dominikcebula.spring.security.user.authentication.activationlink.service.ActivationLinkService;
+import com.dominikcebula.spring.security.user.authentication.users.event.OnUserRegistrationCompletedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
