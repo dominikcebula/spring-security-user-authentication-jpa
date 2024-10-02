@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.ZonedDateTime;
@@ -31,6 +32,7 @@ public class PasswordResetService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public SendPasswordResetLinkResult createAndSendPasswordResetLink(@Valid PasswordResetEmailData passwordResetEmailData) {
         Optional<User> user = userRepository.findUserByUsername(passwordResetEmailData.getEmail());
 
@@ -46,6 +48,7 @@ public class PasswordResetService {
         };
     }
 
+    @Transactional
     public PasswordResetResult resetPasswordUsingToken(@Valid PasswordResetData passwordResetData) {
         Optional<PasswordResetLink> passwordResetLink = passwordResetLinkRepository.findByToken(passwordResetData.getToken());
 
@@ -59,6 +62,7 @@ public class PasswordResetService {
         user.setPassword(passwordEncoder.encode(passwordResetData.getPassword()));
 
         userRepository.save(user);
+        passwordResetLinkRepository.delete(passwordResetLink.get());
 
         return PASSWORD_RESET_SUCCESSFUL;
     }
@@ -66,6 +70,7 @@ public class PasswordResetService {
     private PasswordResetLink createStoredPasswordResetLink(User user) {
         PasswordResetLink passwordResetLink = createPasswordResetLink(user);
 
+        passwordResetLinkRepository.deleteByUserId(user.getId());
         passwordResetLinkRepository.save(passwordResetLink);
 
         return passwordResetLink;

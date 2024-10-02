@@ -2,9 +2,9 @@ package com.dominikcebula.spring.security.user.authentication.activationlink;
 
 import com.dominikcebula.spring.security.user.authentication.users.User;
 import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -26,6 +26,7 @@ public class ActivationLinkService {
     @Autowired
     private ActivationEmailService activationEmailService;
 
+    @Transactional
     public ActivationResult activateAccount(String token) {
         Optional<ActivationLink> activationLink = activationLinkRepository.findByToken(token);
 
@@ -39,6 +40,7 @@ public class ActivationLinkService {
         user.setEnabled(true);
 
         userRepository.save(user);
+        activationLinkRepository.delete(activationLink.get());
 
         return ACCOUNT_ACTIVATED;
     }

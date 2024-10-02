@@ -1,5 +1,6 @@
 package com.dominikcebula.spring.security.user.authentication.passwordreset;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -14,4 +15,11 @@ public interface PasswordResetLinkRepository extends ListCrudRepository<Password
             where u.username=?1
             """)
     Optional<PasswordResetLink> findByUsername(String username);
+
+    @Query("""
+            delete from PasswordResetLink p
+            where p.user.id=?1
+            """)
+    @Modifying
+    void deleteByUserId(Integer userId);
 }
