@@ -2,13 +2,12 @@ package com.dominikcebula.spring.security.user.authentication.signup.service;
 
 import com.dominikcebula.spring.security.user.authentication.signup.dto.SignupData;
 import com.dominikcebula.spring.security.user.authentication.users.User;
-import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
+import com.dominikcebula.spring.security.user.authentication.users.UserService;
 import com.dominikcebula.spring.security.user.authentication.users.event.OnUserRegistrationCompletedEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -19,20 +18,14 @@ import static com.dominikcebula.spring.security.user.authentication.spring.data.
 @Service
 @Validated
 public class SignupService {
-    private static final String ROLE_USER = "ROLE_USER";
-
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
     public UserRegistrationResult registerUser(@Valid SignupData signupData) {
-        User user = new User(signupData.getEmail(), passwordEncoder.encode(signupData.getPassword()), ROLE_USER, false);
-
         try {
-            userRepository.save(user);
+            User user = userService.registerUser(signupData.getEmail(), signupData.getPassword(), false);
 
             eventPublisher.publishEvent(new OnUserRegistrationCompletedEvent(user));
 
