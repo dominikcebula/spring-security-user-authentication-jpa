@@ -1,5 +1,7 @@
-package com.dominikcebula.spring.security.user.authentication.users;
+package com.dominikcebula.spring.security.user.authentication.users.service;
 
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

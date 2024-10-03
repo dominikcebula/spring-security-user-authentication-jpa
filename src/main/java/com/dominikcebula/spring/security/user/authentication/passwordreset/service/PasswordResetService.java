@@ -4,8 +4,8 @@ import com.dominikcebula.spring.security.user.authentication.passwordreset.db.Pa
 import com.dominikcebula.spring.security.user.authentication.passwordreset.db.PasswordResetLinkRepository;
 import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetData;
 import com.dominikcebula.spring.security.user.authentication.passwordreset.dto.PasswordResetEmailData;
-import com.dominikcebula.spring.security.user.authentication.users.User;
-import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

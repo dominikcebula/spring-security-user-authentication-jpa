@@ -2,7 +2,7 @@ package com.dominikcebula.spring.security.user.authentication.activationlink.ser
 
 import com.dominikcebula.spring.security.user.authentication.activationlink.db.ActivationLink;
 import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
-import com.dominikcebula.spring.security.user.authentication.users.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

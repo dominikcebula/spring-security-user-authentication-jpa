@@ -2,7 +2,7 @@ package com.dominikcebula.spring.security.user.authentication.passwordreset.serv
 
 import com.dominikcebula.spring.security.user.authentication.common.url.ServerUrlResolver;
 import com.dominikcebula.spring.security.user.authentication.passwordreset.db.PasswordResetLink;
-import com.dominikcebula.spring.security.user.authentication.users.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

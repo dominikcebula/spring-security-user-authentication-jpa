@@ -1,4 +1,4 @@
-package com.dominikcebula.spring.security.user.authentication.users;
+package com.dominikcebula.spring.security.user.authentication.users.db;
 
 import jakarta.persistence.*;
 import lombok.Data;

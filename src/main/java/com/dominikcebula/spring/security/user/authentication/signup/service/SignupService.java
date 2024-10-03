@@ -1,9 +1,9 @@
 package com.dominikcebula.spring.security.user.authentication.signup.service;
 
 import com.dominikcebula.spring.security.user.authentication.signup.dto.SignupData;
-import com.dominikcebula.spring.security.user.authentication.users.User;
-import com.dominikcebula.spring.security.user.authentication.users.UserService;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
 import com.dominikcebula.spring.security.user.authentication.users.event.OnUserRegistrationCompletedEvent;
+import com.dominikcebula.spring.security.user.authentication.users.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

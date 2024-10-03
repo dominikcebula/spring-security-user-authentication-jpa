@@ -1,5 +1,6 @@
-package com.dominikcebula.spring.security.user.authentication.users;
+package com.dominikcebula.spring.security.user.authentication.users.config;
 
+import com.dominikcebula.spring.security.user.authentication.users.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

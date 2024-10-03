@@ -2,8 +2,8 @@ package com.dominikcebula.spring.security.user.authentication.activationlink.ser
 
 import com.dominikcebula.spring.security.user.authentication.activationlink.db.ActivationLink;
 import com.dominikcebula.spring.security.user.authentication.activationlink.db.ActivationLinkRepository;
-import com.dominikcebula.spring.security.user.authentication.users.User;
-import com.dominikcebula.spring.security.user.authentication.users.UserRepository;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

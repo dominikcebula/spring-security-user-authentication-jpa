@@ -1,5 +1,6 @@
-package com.dominikcebula.spring.security.user.authentication.users;
+package com.dominikcebula.spring.security.user.authentication.users.service;
 
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

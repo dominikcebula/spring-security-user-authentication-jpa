@@ -1,6 +1,6 @@
 package com.dominikcebula.spring.security.user.authentication.activationlink.db;
 
-import com.dominikcebula.spring.security.user.authentication.users.User;
+import com.dominikcebula.spring.security.user.authentication.users.db.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
