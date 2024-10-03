@@ -5,7 +5,7 @@
       xmlns:th="https://www.thymeleaf.org">
 <body>
 <main layout:fragment="content">
-    <form th:action="@{/login}" method="post" class="form-log-in w-100 m-auto">
+    <form name="login" th:action="@{/login}" method="post" class="form-log-in w-100 m-auto">
         <h1 class="h3 mb-3 fw-normal">Please log in</h1>
 
         <div class="form-floating mb-2">
@@ -25,7 +25,7 @@
         </div>
 
         <div class="my-3">
-            <a th:href="@{/passwordReset}">Forgot password?</a>
+            <a id="passwordResetLink" th:href="@{/passwordReset}">Forgot password?</a>
         </div>
 
         <div class="my-3">
@@ -48,7 +48,7 @@
             </td>
         </div>
 
-        <button class="btn btn-primary w-100 py-2" type="submit">Log in</button>
+        <button name="login" class="btn btn-primary w-100 py-2" type="submit">Log in</button>
     </form>
 </main>
 </body>

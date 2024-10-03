@@ -27,7 +27,9 @@ class HomeWebIntegrationTest {
             HtmlPage page = webClient.getPage(webClientFactory.getLocalUrl(path));
 
             assertThat(page.getBody().asNormalizedText())
-                    .isNotBlank();
+                    .contains("Authentication Status")
+                    .contains("Currently, you are not authenticated.")
+                    .contains("Use Login and Sign-up link in the header of this page to get started.");
         }
     }
 }
