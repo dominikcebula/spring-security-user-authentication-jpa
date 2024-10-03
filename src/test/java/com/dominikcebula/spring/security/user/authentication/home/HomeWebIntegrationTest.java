@@ -1,10 +1,11 @@
-package com.dominikcebula.spring.security.user.authentication;
+package com.dominikcebula.spring.security.user.authentication.home;
 
+import com.dominikcebula.spring.security.user.authentication.spring.config.WebClientFactory;
 import org.htmlunit.WebClient;
 import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -15,30 +16,18 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
-class ApplicationTest {
-
-    @Value(value = "${local.server.port}")
-    private int port;
+class HomeWebIntegrationTest {
+    @Autowired
+    private WebClientFactory webClientFactory;
 
     @ParameterizedTest
     @ValueSource(strings = {"", "/", "/home"})
     void shouldDisplayDefaultHelloPage(String path) throws IOException {
-        try (WebClient webClient = getWebClient()) {
-            HtmlPage page = webClient.getPage(getLocalUrl(path));
+        try (WebClient webClient = webClientFactory.getWebClient()) {
+            HtmlPage page = webClient.getPage(webClientFactory.getLocalUrl(path));
 
             assertThat(page.getBody().asNormalizedText())
                     .isNotBlank();
         }
-    }
-
-    private WebClient getWebClient() {
-        WebClient webClient = new WebClient();
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setJavaScriptEnabled(false);
-        return webClient;
-    }
-
-    private String getLocalUrl(String path) {
-        return "http://localhost:%d%s".formatted(port, path);
     }
 }
